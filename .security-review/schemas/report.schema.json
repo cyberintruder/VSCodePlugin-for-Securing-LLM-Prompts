@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.local/security-review/report.schema.json",
+  "title": "Security Review Report",
+  "type": "object",
+  "required": [
+    "project",
+    "review",
+    "summary",
+    "coverage",
+    "findings",
+    "remediationPlan"
+  ],
+  "properties": {
+    "project": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string" },
+        "repository": { "type": "string" },
+        "branch": { "type": "string" },
+        "commit": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "review": {
+      "type": "object",
+      "required": ["date", "reviewer", "scope"],
+      "properties": {
+        "date": { "type": "string" },
+        "reviewer": { "type": "string" },
+        "scope": { "type": "string" },
+        "mode": { "type": "string" },
+        "limitations": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "summary": {
+      "type": "object",
+      "required": ["overallRisk", "securityScore", "counts", "topRisks"],
+      "properties": {
+        "overallRisk": { "type": "string" },
+        "securityScore": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "counts": {
+          "type": "object",
+          "properties": {
+            "critical": { "type": "integer" },
+            "high": { "type": "integer" },
+            "medium": { "type": "integer" },
+            "low": { "type": "integer" },
+            "informational": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "topRisks": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "technologies": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "areasReviewed": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "attackSurface": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "dataClasses": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "riskMatrix": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "findingId": { "type": "string" },
+          "likelihood": { "type": "string" },
+          "impact": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "fileHeatmap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": { "type": "string" },
+          "riskScore": { "type": "integer" },
+          "critical": { "type": "integer" },
+          "high": { "type": "integer" },
+          "medium": { "type": "integer" },
+          "low": { "type": "integer" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "remediationPlan": {
+      "type": "object",
+      "properties": {
+        "immediate": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sprint": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "backlog": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "hardening": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

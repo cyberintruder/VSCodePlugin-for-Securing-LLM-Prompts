@@ -1,0 +1,23 @@
+name: Security Review Schema Check
+
+on:
+  pull_request:
+    paths:
+      - ".security-review/**/*.json"
+      - ".github/workflows/security-review-schema-check.yml"
+  workflow_dispatch:
+
+jobs:
+  validate-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        shell: bash
+        run: |
+          set -euo pipefail
+          find .security-review -name "*.json" -print0 | while IFS= read -r -d '' file; do
+            python -m json.tool "$file" >/dev/null
+          done

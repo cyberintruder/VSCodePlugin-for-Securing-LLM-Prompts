@@ -1,0 +1,47 @@
+{
+  "id": "SRF-001",
+  "title": "Object-level authorization missing on invoice download",
+  "severity": "High",
+  "confidence": "High",
+  "status": "Confirmed",
+  "category": "Authorization",
+  "cwe": "CWE-639",
+  "owasp": "API1:2023 Broken Object Level Authorization",
+  "asvs": "ASVS 4.0.3 V4.1",
+  "capec": "CAPEC-1",
+  "cvss": {
+    "score": 8.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N"
+  },
+  "affectedLocations": [
+    {
+      "file": "src/controllers/invoices.ts",
+      "function": "downloadInvoice",
+      "startLine": 42,
+      "endLine": 67
+    }
+  ],
+  "description": "The invoice download handler uses a request-controlled invoice ID without checking that the invoice belongs to the authenticated user or tenant.",
+  "evidence": [
+    "The handler reads `req.params.invoiceId` and calls `Invoice.findById(invoiceId)`.",
+    "No tenant or owner check is visible before returning the PDF."
+  ],
+  "sourceToSink": {
+    "source": "req.params.invoiceId",
+    "transformations": ["String parameter passed to repository lookup"],
+    "validation": "No ownership validation visible",
+    "authorization": "Authentication exists, object-level authorization missing",
+    "sink": "PDF invoice response",
+    "impact": "Authenticated user can access another user's invoice by guessing or obtaining an ID"
+  },
+  "exploitability": "An authenticated user can change the invoice ID in the URL and request invoices owned by other users if IDs are known or guessable.",
+  "attackScenario": "A user downloads their invoice, changes the URL parameter to another invoice ID, and receives another customer's billing document.",
+  "impact": "Unauthorized disclosure of billing data and potential cross-tenant data exposure.",
+  "likelihood": "High",
+  "remediation": "Fetch invoices by both ID and authorized tenant/user, or enforce an authorization policy before returning the file.",
+  "secureExample": "Invoice.findOne({ id: invoiceId, tenantId: req.user.tenantId })",
+  "references": [
+    "OWASP API Security Top 10 API1:2023",
+    "CWE-639"
+  ]
+}

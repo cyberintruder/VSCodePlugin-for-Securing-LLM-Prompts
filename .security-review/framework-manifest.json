@@ -1,0 +1,71 @@
+{
+  "name": "Security Review Framework",
+  "version": "2.0.0",
+  "schemaVersion": "1.0",
+  "entrypoints": {
+    "copilotInstructions": ".github/copilot-instructions.md",
+    "quickReview": ".github/prompts/quick-review.prompt.md",
+    "deepReview": ".github/prompts/deep-review.prompt.md",
+    "prReview": ".github/prompts/pr-review.prompt.md",
+    "threatModel": ".github/prompts/threat-model.prompt.md",
+    "architectureReview": ".github/prompts/architecture-review.prompt.md",
+    "aiSecurityReview": ".github/prompts/ai-security-review.prompt.md",
+    "fixValidation": ".github/prompts/fix-validation.prompt.md"
+  },
+  "workflow": [
+    ".security-review/workflow/review-workflow.md",
+    ".security-review/workflow/technology-detection.md",
+    ".security-review/workflow/threat-modeling.md",
+    ".security-review/workflow/data-flow-analysis.md",
+    ".security-review/workflow/privilege-boundaries.md",
+    ".security-review/workflow/exploitability-validation.md",
+    ".security-review/workflow/false-positive-reduction.md",
+    ".security-review/workflow/reporting-workflow.md"
+  ],
+  "schemas": {
+    "finding": ".security-review/schemas/finding.schema.json",
+    "report": ".security-review/schemas/report.schema.json"
+  },
+  "rulePacks": {
+    "core": ".security-review/rules/core",
+    "cloud": ".security-review/rules/cloud",
+    "ai": ".security-review/rules/ai",
+    "technologies": ".security-review/rules/technologies",
+    "standards": ".security-review/rules/standards"
+  },
+  "reporting": {
+    "dashboard": ".security-review/templates/security-dashboard.html",
+    "sampleReport": ".security-review/examples/sample-report.json"
+  },
+  "reviewModes": [
+    "quick",
+    "pull-request",
+    "deep",
+    "architecture",
+    "threat-model",
+    "ai-security",
+    "cloud",
+    "fix-validation"
+  ],
+  "findingStatuses": [
+    "Confirmed",
+    "Potential Issue - Requires Verification",
+    "False Positive",
+    "Fixed",
+    "Partially Fixed",
+    "Not Fixed",
+    "Accepted Risk"
+  ],
+  "severityLevels": [
+    "Critical",
+    "High",
+    "Medium",
+    "Low",
+    "Informational"
+  ],
+  "confidenceLevels": [
+    "High",
+    "Medium",
+    "Low"
+  ]
+}

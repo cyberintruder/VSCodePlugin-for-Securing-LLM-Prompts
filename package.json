@@ -1,0 +1,196 @@
+{
+  "name": "security-review-framework",
+  "displayName": "Security Review Framework",
+  "description": "AI-assisted security review framework for developer teams, with prompts, findings view, and an interactive dashboard.",
+  "version": "0.1.0",
+  "publisher": "security-review-framework",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/security-review-framework/security-review-framework.git"
+  },
+  "homepage": "https://github.com/security-review-framework/security-review-framework#readme",
+  "bugs": {
+    "url": "https://github.com/security-review-framework/security-review-framework/issues"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other",
+    "Linters",
+    "Programming Languages"
+  ],
+  "keywords": [
+    "security",
+    "appsec",
+    "code review",
+    "copilot",
+    "vulnerability",
+    "owasp"
+  ],
+  "activationEvents": [
+    "onCommand:securityReview.quickReviewCurrentFile",
+    "onCommand:securityReview.deepReviewWorkspace",
+    "onCommand:securityReview.aiSecurityReview",
+    "onCommand:securityReview.fixValidation",
+    "onCommand:securityReview.openDashboard",
+    "onCommand:securityReview.openFramework",
+    "onView:securityReviewFindings"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "securityReview.quickReviewCurrentFile",
+        "title": "Security Review: Quick Review Current File",
+        "category": "Security Review"
+      },
+      {
+        "command": "securityReview.deepReviewWorkspace",
+        "title": "Security Review: Deep Review Workspace",
+        "category": "Security Review"
+      },
+      {
+        "command": "securityReview.aiSecurityReview",
+        "title": "Security Review: AI/LLM Security Review",
+        "category": "Security Review"
+      },
+      {
+        "command": "securityReview.fixValidation",
+        "title": "Security Review: Fix Validation Prompt",
+        "category": "Security Review"
+      },
+      {
+        "command": "securityReview.openDashboard",
+        "title": "Security Review: Open Dashboard",
+        "category": "Security Review"
+      },
+      {
+        "command": "securityReview.openFramework",
+        "title": "Security Review: Open Framework Manifest",
+        "category": "Security Review"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "securityReview",
+          "title": "Security Review",
+          "icon": "media/security-review.svg"
+        }
+      ]
+    },
+    "views": {
+      "securityReview": [
+        {
+          "id": "securityReviewFindings",
+          "name": "Security Review"
+        }
+      ]
+    },
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "securityReview.quickReviewCurrentFile"
+        },
+        {
+          "command": "securityReview.deepReviewWorkspace"
+        },
+        {
+          "command": "securityReview.aiSecurityReview"
+        },
+        {
+          "command": "securityReview.fixValidation"
+        },
+        {
+          "command": "securityReview.openDashboard"
+        },
+        {
+          "command": "securityReview.openFramework"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "securityReview.quickReviewCurrentFile",
+          "group": "navigation@20"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "securityReview.openDashboard",
+          "when": "view == securityReviewFindings",
+          "group": "navigation@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Security Review Framework",
+      "properties": {
+        "securityReview.maxWorkspaceFiles": {
+          "type": "number",
+          "default": 80,
+          "minimum": 1,
+          "description": "Maximum number of workspace files to summarize for prompt generation."
+        },
+        "securityReview.maxFileBytes": {
+          "type": "number",
+          "default": 120000,
+          "minimum": 1000,
+          "description": "Maximum bytes read from any single source file while building review context."
+        },
+        "securityReview.includePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "src/**",
+            "app/**",
+            "lib/**",
+            "server/**",
+            "api/**",
+            ".github/**",
+            "infra/**",
+            "k8s/**",
+            "helm/**",
+            "**/*.tf",
+            "**/Dockerfile",
+            "**/docker-compose*.yml",
+            "**/package.json",
+            "**/pom.xml",
+            "**/*.csproj",
+            "**/requirements.txt",
+            "**/pyproject.toml",
+            "**/go.mod",
+            "**/pubspec.yaml"
+          ],
+          "description": "Glob patterns used to collect workspace context for deep review prompts."
+        },
+        "securityReview.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/out/**",
+            "**/.git/**",
+            "**/.venv/**",
+            "**/coverage/**"
+          ],
+          "description": "Glob patterns excluded from workspace context collection."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo \"No build step required for Phase 1\"",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^3.9.2"
+  }
+}

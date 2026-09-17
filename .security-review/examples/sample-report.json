@@ -1,0 +1,155 @@
+{
+  "project": {
+    "name": "Example Commerce API",
+    "repository": "https://example.local/org/example-commerce-api",
+    "branch": "main",
+    "commit": "abc1234"
+  },
+  "review": {
+    "date": "2026-06-29",
+    "reviewer": "GitHub Copilot using Security Review Framework v2",
+    "scope": "Sample report data for dashboard validation",
+    "mode": "deep",
+    "limitations": [
+      "Sample data only",
+      "No live repository was reviewed"
+    ]
+  },
+  "summary": {
+    "overallRisk": "High",
+    "securityScore": 78,
+    "counts": {
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 1,
+      "informational": 1
+    },
+    "topRisks": [
+      "Object-level authorization gap on invoice access",
+      "Sensitive data may be written to application logs",
+      "Cloud storage encryption policy should be verified"
+    ]
+  },
+  "coverage": {
+    "technologies": ["Node.js", "Express", "PostgreSQL", "AWS S3"],
+    "areasReviewed": ["Authentication", "Authorization", "Input Validation", "Logging", "Cloud Storage"],
+    "attackSurface": ["REST APIs", "File downloads", "Background jobs"],
+    "dataClasses": ["PII", "Financial Data", "Credentials"]
+  },
+  "riskMatrix": [
+    {
+      "findingId": "SRF-001",
+      "likelihood": "High",
+      "impact": "High"
+    },
+    {
+      "findingId": "SRF-002",
+      "likelihood": "Medium",
+      "impact": "Medium"
+    }
+  ],
+  "fileHeatmap": [
+    {
+      "file": "src/controllers/invoices.ts",
+      "riskScore": 88,
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0
+    },
+    {
+      "file": "src/middleware/logger.ts",
+      "riskScore": 52,
+      "critical": 0,
+      "high": 0,
+      "medium": 1,
+      "low": 0
+    }
+  ],
+  "findings": [
+    {
+      "id": "SRF-001",
+      "title": "Object-level authorization missing on invoice download",
+      "severity": "High",
+      "confidence": "High",
+      "status": "Confirmed",
+      "category": "Authorization",
+      "cwe": "CWE-639",
+      "owasp": "API1:2023 Broken Object Level Authorization",
+      "asvs": "ASVS 4.0.3 V4.1",
+      "capec": "CAPEC-1",
+      "cvss": {
+        "score": 8.1,
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N"
+      },
+      "affectedLocations": [
+        {
+          "file": "src/controllers/invoices.ts",
+          "function": "downloadInvoice",
+          "startLine": 42,
+          "endLine": 67
+        }
+      ],
+      "description": "The invoice download handler uses a request-controlled invoice ID without checking that the invoice belongs to the authenticated user or tenant.",
+      "evidence": [
+        "The handler reads `req.params.invoiceId` and calls `Invoice.findById(invoiceId)`.",
+        "No tenant or owner check is visible before returning the PDF."
+      ],
+      "sourceToSink": {
+        "source": "req.params.invoiceId",
+        "transformations": ["String parameter passed to repository lookup"],
+        "validation": "No ownership validation visible",
+        "authorization": "Authentication exists, object-level authorization missing",
+        "sink": "PDF invoice response",
+        "impact": "Authenticated user can access another user's invoice by guessing or obtaining an ID"
+      },
+      "exploitability": "An authenticated user can change the invoice ID in the URL and request invoices owned by other users if IDs are known or guessable.",
+      "attackScenario": "A user downloads their invoice, changes the URL parameter to another invoice ID, and receives another customer's billing document.",
+      "impact": "Unauthorized disclosure of billing data and potential cross-tenant data exposure.",
+      "likelihood": "High",
+      "remediation": "Fetch invoices by both ID and authorized tenant/user, or enforce an authorization policy before returning the file.",
+      "secureExample": "Invoice.findOne({ id: invoiceId, tenantId: req.user.tenantId })",
+      "references": ["OWASP API Security Top 10 API1:2023", "CWE-639"]
+    },
+    {
+      "id": "SRF-002",
+      "title": "Request logger may capture authorization headers",
+      "severity": "Medium",
+      "confidence": "Medium",
+      "status": "Potential Issue - Requires Verification",
+      "category": "Logging",
+      "cwe": "CWE-532",
+      "owasp": "A09:2021 Security Logging and Monitoring Failures",
+      "affectedLocations": [
+        {
+          "file": "src/middleware/logger.ts",
+          "startLine": 12
+        }
+      ],
+      "description": "The logger serializes request headers. It is unclear whether authorization headers are redacted before log export.",
+      "evidence": ["Request headers are included in structured log context."],
+      "sourceToSink": {
+        "source": "HTTP request headers",
+        "transformations": ["Serialized into structured log fields"],
+        "validation": "No redaction visible in sample",
+        "authorization": "Not applicable",
+        "sink": "Application logs",
+        "impact": "Potential credential exposure in logs"
+      },
+      "exploitability": "If authorization headers are exported to centralized logs, users with log access may retrieve bearer tokens.",
+      "attackScenario": "An operator or compromised log account searches for authorization headers and reuses active bearer tokens.",
+      "impact": "Credential exposure and session hijacking risk.",
+      "likelihood": "Medium",
+      "remediation": "Redact `Authorization`, cookies, API keys, and tokens before logging request metadata.",
+      "secureExample": "redactHeaders(req.headers, ['authorization', 'cookie', 'x-api-key'])",
+      "references": ["CWE-532"]
+    }
+  ],
+  "remediationPlan": {
+    "immediate": ["Fix SRF-001 before release."],
+    "sprint": ["Verify and fix SRF-002 log redaction."],
+    "backlog": ["Add automated authorization regression tests."],
+    "hardening": ["Document log data classification and retention."]
+  }
+}

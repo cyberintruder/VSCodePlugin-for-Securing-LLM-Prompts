@@ -1,0 +1,12 @@
+.git/**
+.agents/**
+dist/**
+.tools/**
+tools/**
+[Content_Types].xml
+extension.vsixmanifest
+**/*.log
+**/*.tmp
+node_modules/**
+.DS_Store
+Thumbs.db
