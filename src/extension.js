@@ -107,6 +107,13 @@ function activate(context) {
     installWorkspaceInstructions(true).catch((error) => {
       console.error("Security Review managed instruction installation failed", error);
     });
+    context.subscriptions.push(vscode.workspace.onDidChangeWorkspaceFolders(() => {
+      if (!isExtensionSourceWorkspace(context)) {
+        installWorkspaceInstructions(true).catch((error) => {
+          console.error("Security Review managed instruction installation failed after workspace change", error);
+        });
+      }
+    }));
   }
 
   context.subscriptions.push(
