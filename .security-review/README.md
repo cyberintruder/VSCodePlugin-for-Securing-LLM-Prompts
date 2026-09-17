@@ -1,6 +1,6 @@
-# Security Review Framework v2 Internals
+# Secure Coding Framework v2 Internals
 
-This folder is the source of truth for Security Review Framework v2.
+This folder is the source of truth for Secure Coding Framework v2.
 
 Use it in this order:
 

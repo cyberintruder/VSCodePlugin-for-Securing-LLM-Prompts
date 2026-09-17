@@ -1,6 +1,6 @@
 # Build And Rebuild The VS Code Extension
 
-This guide explains how to build, rebuild, package, and install the Security Review Framework VS Code extension.
+This guide explains how to build, rebuild, package, and install the Secure Coding Framework VS Code extension.
 
 ## What You Are Building
 
@@ -158,6 +158,10 @@ Developer: Reload Window
 ```
 
 from the Command Palette.
+
+When VS Code starts with a workspace open, the extension automatically installs or refreshes its managed instruction sections for Copilot, Claude Code, and Codex, including initially empty workspaces. It does not overwrite unmanaged content in existing instruction files.
+If the target project does not already contain `.security-review/`, the extension also copies the complete bundled framework, including OWASP/ASVS and all rule packs.
+The target project's `.gitignore` is updated with `.security-review/`; the extension source repository still tracks its own `.security-review/` directory.
 
 ## Run In Extension Development Host
 

@@ -1,6 +1,6 @@
 # Legacy Entry Point: Reporting
 
-Security Review Framework v2 reporting lives in:
+Secure Coding Framework v2 reporting lives in:
 
 - `.security-review/workflow/reporting-workflow.md`
 - `.security-review/schemas/finding.schema.json`

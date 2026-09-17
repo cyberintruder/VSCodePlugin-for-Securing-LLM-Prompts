@@ -1,6 +1,6 @@
 # Threat Model
 
-Use Security Review Framework v2 to produce a security threat model.
+Use Secure Coding Framework v2 to produce a security threat model.
 
 ## Inputs
 

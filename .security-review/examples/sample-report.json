@@ -7,7 +7,7 @@
   },
   "review": {
     "date": "2026-06-29",
-    "reviewer": "GitHub Copilot using Security Review Framework v2",
+    "reviewer": "GitHub Copilot using Secure Coding Framework v2",
     "scope": "Sample report data for dashboard validation",
     "mode": "deep",
     "limitations": [

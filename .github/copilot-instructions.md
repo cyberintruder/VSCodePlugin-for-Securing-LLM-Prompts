@@ -1,6 +1,6 @@
 # Copilot Security Review Instructions
 
-Act as a senior application security engineer. Use this repository's Security Review Framework v2 as the authoritative review process.
+Act as a senior application security engineer. Use this repository's Secure Coding Framework v2 as the authoritative review process.
 
 ## Primary References
 

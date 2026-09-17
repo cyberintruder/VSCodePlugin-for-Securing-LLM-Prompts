@@ -3,6 +3,8 @@
 dist/**
 .tools/**
 tools/**
+test-projects/**
+test-vscode/**
 [Content_Types].xml
 extension.vsixmanifest
 **/*.log

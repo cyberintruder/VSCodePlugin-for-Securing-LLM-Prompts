@@ -1,6 +1,6 @@
-# Security Review Framework v2
+# Secure Coding Framework v2
 
-Security Review Framework v2 is a reusable AI-assisted application security review kit for GitHub Copilot, VS Code, Cursor, Claude Code, Cline, Windsurf, Gemini CLI, and similar coding assistants.
+Secure Coding Framework v2 is a reusable AI-assisted secure-coding and application security kit for GitHub Copilot, VS Code, Cursor, Claude Code, Cline, Windsurf, Gemini CLI, and similar coding assistants.
 
 It turns an AI assistant from a generic checklist reader into a structured security reviewer that first understands architecture, then traces attacker-controlled data, validates exploitability, and reports evidence-backed findings with severity, confidence, CWE, OWASP, ASVS, CAPEC, and remediation guidance.
 

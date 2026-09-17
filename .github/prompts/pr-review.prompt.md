@@ -1,6 +1,6 @@
 # Pull Request Security Review
 
-Use Security Review Framework v2 to review this pull request.
+Use Secure Coding Framework v2 to review this pull request.
 
 ## Scope
 

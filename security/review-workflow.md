@@ -1,6 +1,6 @@
 # Legacy Entry Point: Review Workflow
 
-Security Review Framework v2 uses:
+Secure Coding Framework v2 uses:
 
 - `.security-review/workflow/review-workflow.md`
 - `.security-review/workflow/technology-detection.md`

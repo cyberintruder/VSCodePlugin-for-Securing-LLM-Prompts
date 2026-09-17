@@ -1,6 +1,6 @@
 # Quick Security Review
 
-Use Security Review Framework v2.
+Use Secure Coding Framework v2.
 
 ## Scope
 

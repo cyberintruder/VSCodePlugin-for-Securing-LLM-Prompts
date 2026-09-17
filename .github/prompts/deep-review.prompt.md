@@ -1,6 +1,6 @@
 # Deep Repository Security Review
 
-Use Security Review Framework v2 for a full repository review.
+Use Secure Coding Framework v2 for a full repository review.
 
 ## Phase 1: Understand
 

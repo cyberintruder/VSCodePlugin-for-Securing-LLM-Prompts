@@ -6,3 +6,7 @@ node_modules/
 Thumbs.db
 *.tmp
 *.log
+test-projects/
+test-vscode/
+docs/~$*
+docs/security-review-framework-developer-presentation.pptx

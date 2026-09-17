@@ -1,6 +1,6 @@
 # Developer Setup Guide
 
-This guide explains how to install and use Security Review Framework v2 in an application repository.
+This guide explains how to install and use Secure Coding Framework v2 in an application repository.
 
 ## Prerequisites
 
@@ -57,7 +57,7 @@ Use this content:
 ```markdown
 # Copilot Security Review Instructions
 
-Use `.security-review-framework/.security-review/` as the authoritative Security Review Framework.
+Use `.security-review-framework/.security-review/` as the authoritative Secure Coding Framework.
 Start with `.security-review-framework/.security-review/framework-manifest.json`.
 Follow the workflow and rules before reporting findings.
 Only report evidence-backed security issues.

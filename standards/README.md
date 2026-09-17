@@ -1,6 +1,6 @@
 # Legacy Entry Point: Standards
 
-Security Review Framework v2 standards mappings live under:
+Secure Coding Framework v2 standards mappings live under:
 
 - `.security-review/rules/standards/owasp-top10.md`
 - `.security-review/rules/standards/owasp-asvs.md`

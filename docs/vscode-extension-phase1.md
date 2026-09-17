@@ -1,6 +1,6 @@
 # VS Code Extension Phase 1
 
-Phase 1 turns Security Review Framework v2 into a standalone VS Code extension shell.
+Phase 1 turns Secure Coding Framework v2 into a standalone VS Code extension shell.
 
 ## Included
 

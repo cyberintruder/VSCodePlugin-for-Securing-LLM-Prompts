@@ -1,4 +1,4 @@
-# Security Review Framework Version
+# Secure Coding Framework Version
 
 Version: `2.0.0`
 
@@ -13,7 +13,7 @@ Compatibility:
 
 ## v2 Goals
 
-Security Review Framework v2 upgrades the starter checklist into a reusable security review system:
+Secure Coding Framework v2 upgrades the starter checklist into a reusable security review system:
 
 - Modular repository structure.
 - Root Copilot bootstrap instructions.

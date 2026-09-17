@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Secure Coding Framework Developer Implementation Guide</title>
+  <style>
+    :root{--ink:#16232f;--muted:#536575;--blue:#0b5cab;--pale:#eef5fb;--line:#d7e1ea}
+    *{box-sizing:border-box} body{margin:0;font:16px/1.6 Segoe UI,Arial,sans-serif;color:var(--ink);background:#f5f7fa}
+    main{max-width:1050px;margin:0 auto;background:white;min-height:100vh;padding:56px 72px 80px}
+    h1{font-size:38px;line-height:1.1;margin:0 0 12px;color:#123b61} h2{font-size:25px;margin:42px 0 12px;color:#123b61;border-bottom:2px solid var(--line);padding-bottom:6px} h3{font-size:19px;margin:26px 0 6px;color:#174d7a}
+    p{margin:10px 0} .lead{font-size:20px;color:var(--muted);max-width:850px}.meta{color:var(--muted);margin-bottom:36px}
+    code,pre{font-family:Consolas,monospace} code{background:#eef2f5;padding:2px 5px;border-radius:3px} pre{background:#101b26;color:#eaf3fb;padding:18px;border-radius:6px;overflow:auto}
+    ul,ol{padding-left:28px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px 0}.card{border:1px solid var(--line);padding:16px;border-radius:6px;background:#fbfdff}.card h3{margin-top:0}.note{background:var(--pale);border-left:4px solid var(--blue);padding:14px 18px;margin:18px 0}
+    table{border-collapse:collapse;width:100%;margin:15px 0}th,td{border:1px solid var(--line);padding:10px;text-align:left;vertical-align:top}th{background:#eaf2f9}
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:20px 0}.shot{border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#101b26;color:#eaf3fb;box-shadow:0 8px 22px #16232f18}.shot-head{padding:13px 16px;background:#182c3d;color:white;font-weight:700}.shot-head span{float:right;font-size:12px;color:#a9c9df;font-weight:400}.shot pre{margin:0;border-radius:0;padding:16px;font-size:13px;line-height:1.5;min-height:225px}.tag{display:inline-block;margin:10px 6px 14px 0;padding:4px 8px;border-radius:12px;background:#dff3e9;color:#176443;font-size:12px;font-weight:700}.tag.warn{background:#fff0d8;color:#8a5415}.metric{font-size:29px;font-weight:700;color:var(--blue)}
+    .gallery{display:grid;grid-template-columns:1fr;gap:22px;margin:22px 0}.gallery figure{margin:0;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 8px 24px #16232f18}.gallery img{display:block;width:100%;height:auto}.gallery figcaption{padding:12px 16px;font-size:14px;color:var(--muted)}.gallery strong{color:var(--ink)}
+    .small{font-size:14px;color:var(--muted)} @media(max-width:760px){main{padding:32px 22px}.grid{grid-template-columns:1fr}h1{font-size:31px}}
+  </style>
+</head>
+<body><main>
+  <h1>Secure Coding Framework Developer Implementation Guide</h1>
+  <p class="lead">How the VS Code extension provisions secure-coding guidance for GitHub Copilot, Claude Code, and Codex projects.</p>
+  <p class="meta">Audience: application developers, platform teams, and engineering enablement teams</p>
+
+  <div class="note"><strong>Purpose.</strong> Developers can use normal coding prompts while the project receives managed secure-coding instructions and the complete local Secure Coding Framework. The plugin provides guidance; it does not replace the model provider's system prompt or guarantee secure code.</div>
+
+  <h2>What the plugin installs</h2>
+  <table><thead><tr><th>Artifact</th><th>Purpose</th><th>Source control</th></tr></thead><tbody>
+    <tr><td><code>.github/copilot-instructions.md</code></td><td>Repository instructions discovered by GitHub Copilot.</td><td>Project-managed; existing content is preserved.</td></tr>
+    <tr><td><code>CLAUDE.md</code></td><td>Repository instructions for Claude Code.</td><td>Project-managed; existing content is preserved.</td></tr>
+    <tr><td><code>AGENTS.md</code></td><td>Repository instructions for Codex-style agents.</td><td>Project-managed; existing content is preserved.</td></tr>
+    <tr><td><code>.security-review/</code></td><td>Complete local rule pack, workflows, schemas, mappings, and templates.</td><td>Added to <code>.gitignore</code> by the installer.</td></tr>
+  </tbody></table>
+
+  <h2>Framework coverage</h2>
+  <div class="grid"><div class="card"><h3>Application security</h3><p>Authentication, authorization, input validation, injection, cryptography, secrets, sessions, logging, file handling, configuration, and business logic.</p></div><div class="card"><h3>Platform security</h3><p>API, cloud, Docker, Kubernetes, Terraform, CI/CD, supply chain, and technology-specific guidance.</p></div><div class="card"><h3>AI security</h3><p>Prompt injection, RAG, agents, MCP, tool authorization, sensitive context, and model-output trust boundaries when AI is present.</p></div></div>
+
+  <h2>How provider instructions use the framework</h2>
+  <p>The managed provider files now tell the assistant to read the manifest and review workflow first, detect the project stack, select only applicable rule packs, and apply secure defaults during ordinary code generation. The examples directory is for output shape only; it is not treated as evidence.</p>
+  <pre>Read manifest and workflow
+        ↓
+Detect stack and trust boundaries
+        ↓
+Select applicable rules
+        ↓
+Generate secure defaults
+        ↓
+Explain assumptions and unresolved risks</pre>
+
+  <h2>Developer experience</h2>
+  <ol><li>Install the VSIX in VS Code.</li><li>Open a project workspace, even if it is initially empty.</li><li>The extension provisions the managed instruction files automatically.</li><li>If the project has no <code>.security-review/</code>, the extension copies the bundled framework.</li><li>The project can then use normal prompts such as <code>Create a login page</code>.</li><li>The model sees provider-specific repository guidance that points to the framework rules.</li></ol>
+  <pre>Developer prompt: Create a login page
+
+Provider repository instructions
+        +
+.security-review/ framework rules
+        =
+Security-aware coding context</pre>
+
+  <h2>Installation and rollout</h2>
+  <p>For developers receiving the shared VSIX file, place <code>security-review-framework-0.1.0.vsix</code> in a local folder and run:</p>
+  <pre>code --install-extension .\security-review-framework-0.1.0.vsix --force</pre>
+  <p>Or install it through VS Code: open Extensions, select the three-dot menu, choose <strong>Install from VSIX</strong>, and select the shared file.</p>
+  <p>For enterprise rollout, distribute the VSIX through the approved software-management channel. The extension should be installed before developers open their application workspaces.</p>
+
+  <h2>Safety behavior</h2>
+  <ul><li>Existing unmanaged provider instructions are not overwritten.</li><li>Only the extension-owned marked section is refreshed.</li><li>The plugin avoids provisioning files into its own source repository during development.</li><li>Likely secrets are redacted from generated review context.</li><li>Repository content is marked as untrusted context in generated prompts.</li><li>The project-local framework is ignored by Git so it is not pushed to GitHub.</li></ul>
+
+  <h2>What this does not guarantee</h2>
+  <p>The extension does not intercept every request sent by Copilot, Codex, Claude Code, or another LLM. Provider instructions are advisory and model behavior can vary. The plugin is therefore a managed context and framework distribution mechanism, not an AI gateway or a complete security enforcement gate.</p>
+
+  <h2>Developer questions and answers</h2>
+  <h3>Do I need to type a special security prompt?</h3>
+  <p>No. After the extension provisions the project files, the developer can use a normal request such as <code>Create a login page</code>. The provider-specific instruction file supplies the additional framework context automatically.</p>
+  <h3>Does installing the extension change my system prompt?</h3>
+  <p>No. The extension does not replace or edit the provider's system or developer prompt. It adds repository-level instructions where the provider supports them.</p>
+  <h3>Does it guarantee OWASP-compliant code?</h3>
+  <p>No. It gives the model the OWASP, ASVS, core, technology, cloud, and AI guidance already stored in the framework. The model can still make mistakes, so normal review and your existing SAST, SCA, secret-scanning, and CI controls remain necessary.</p>
+  <h3>Why are there three instruction files?</h3>
+  <p>Each provider uses its own repository instruction convention. Copilot reads <code>.github/copilot-instructions.md</code>, Claude Code uses <code>CLAUDE.md</code>, and Codex-style agents use <code>AGENTS.md</code>. The content is aligned, but the files allow each provider to discover it.</p>
+  <h3>Are all the security rules copied into my project?</h3>
+  <p>Yes, if the project does not already have <code>.security-review/</code>. The directory includes the complete local framework, not only the OWASP Top 10 file. If the project already has that directory, the plugin preserves it.</p>
+  <h3>Will the framework be pushed to GitHub?</h3>
+  <p>Normally no. The installer adds <code>.security-review/</code> to the target project's <code>.gitignore</code>. The three provider instruction files remain visible project files because providers need to discover them.</p>
+  <h3>Will existing project instructions be overwritten?</h3>
+  <p>No. If an instruction file already contains content that is not managed by this extension, the file is preserved. The extension updates only its own marked section.</p>
+  <h3>What happens when the framework is updated?</h3>
+  <p>A newer VSIX can refresh the managed instruction sections. An existing project-owned <code>.security-review/</code> directory is deliberately preserved, so teams should define a controlled update process if they want to replace that local copy.</p>
+  <h3>Does it send source code to an external service?</h3>
+  <p>The extension itself does not call an LLM service. It prepares local instruction and review context. The selected provider controls whether and how project content is sent to its service.</p>
+  <h3>Does it work in every IDE?</h3>
+  <p>The extension installs through VS Code. The instruction files may also be usable by compatible provider tools outside VS Code, but provider support and discovery rules must be verified for that tool.</p>
+  <h3>What should I do if generated code is still insecure?</h3>
+  <p>Use the existing security scanners and tests, review the finding evidence, and ask the provider to remediate the specific issue. The plugin supplies context; it is not a replacement for security validation.</p>
+
+  <h2>Implementation checklist</h2>
+  <ul><li>Build and install the latest VSIX.</li><li>Open a separate sample application project.</li><li>Confirm the three provider files and <code>.security-review/</code> appear there.</li><li>Confirm <code>.security-review/</code> is listed in the project <code>.gitignore</code>.</li><li>Ask the provider to create a login page and inspect whether it references secure authentication, password storage, sessions, CSRF, rate limiting, validation, and safe error handling.</li><li>Use your existing SAST, SCA, secret-scanning, and CI tools for enforcement.</li></ul>
+
+  <h2>Plugin comparison test</h2>
+  <p>Use two fresh projects and the same provider and model. Keep the prompts identical:</p>
+  <pre>Prompt 1: create a simple html login page
+Prompt 2: create backend logic to validate the credentials</pre>
+  <table><thead><tr><th>Area</th><th>Without framework</th><th>With framework</th></tr></thead><tbody>
+    <tr><td>Password handling</td><td>Check for plaintext or hardcoded credentials.</td><td>Check hashing, salts, and secret handling.</td></tr>
+    <tr><td>Sessions</td><td>Check whether sessions are absent or unsafe.</td><td>Check cookie flags, entropy, expiry, revocation, storage, and HTTPS.</td></tr>
+    <tr><td>Abuse controls</td><td>Check whether throttling and generic errors are absent.</td><td>Check rate limiting, enumeration resistance, and request limits.</td></tr>
+    <tr><td>Limitations</td><td>Record whether production gaps are explained.</td><td>Record unresolved risks and missing controls.</td></tr>
+  </tbody></table>
+  <p class="small">This is a validation worksheet, not a claim that an LLM will always produce identical output.</p>
+  <h3>Observed comparison from the test projects</h3>
+  <table><thead><tr><th>Control</th><th>Project 2 without framework</th><th>Project 1 with framework context</th></tr></thead><tbody>
+    <tr><td>Password storage</td><td>Plaintext environment password with a default value.</td><td>Salted scrypt hash and constant-time comparison.</td></tr>
+    <tr><td>Secrets</td><td>Includes an insecure demo password fallback.</td><td>Uses environment variables without a password fallback.</td></tr>
+    <tr><td>Sessions</td><td>No authenticated session is created.</td><td>Creates a random HttpOnly, SameSite session cookie with expiry.</td></tr>
+    <tr><td>Abuse controls</td><td>No failed-attempt throttling.</td><td>Basic failed-attempt throttling and generic authentication errors.</td></tr>
+    <tr><td>Response security</td><td>No security response headers.</td><td>CSP, nosniff, frame denial, and referrer policy are present.</td></tr>
+    <tr><td>Positive control</td><td>Escapes the reflected email before inserting it into HTML.</td><td>Also avoids reflecting authentication details in failure responses.</td></tr>
+  </tbody></table>
+  <p>The comparison shows a meaningful improvement, but the framework-assisted implementation still requires HTTPS, CSRF protection, durable session storage, logout/revocation, and a real user store for production.</p>
+  <div class="compare">
+    <div class="shot"><div class="shot-head">Project 2 without framework context <span>server.js</span></div><pre>const demoUser = {
+  email: process.env.DEMO_EMAIL ||
+    'demo@example.com',
+  password: process.env.DEMO_PASSWORD ||
+    'Password123!'
+};
+
+if (email !== demoUser.email ||
+    password !== demoUser.password) {
+  return res.status(401).send('Invalid...');
+}</pre><div style="padding:0 16px"><span class="tag warn">plaintext comparison</span><span class="tag warn">default credential</span><span class="tag warn">no session</span></div></div>
+    <div class="shot"><div class="shot-head">Project 1 with framework context <span>server.js</span></div><pre>const passwordRecord =
+  process.env.AUTH_PASSWORD_HASH || '';
+
+const derived = crypto.scryptSync(
+  password, record.salt, record.hash.length,
+  { N: 16384, r: 8, p: 1 }
+);
+
+crypto.timingSafeEqual(derived, record.hash);
+Set-Cookie: HttpOnly; SameSite=Strict</pre><div style="padding:0 16px"><span class="tag">salted hash</span><span class="tag">constant-time compare</span><span class="tag">secure session</span></div></div>
+  </div>
+  <h3>Full evidence screenshots</h3>
+  <p>These screenshots preserve the actual developer workflow and model output used for the comparison.</p>
+  <div class="gallery">
+    <figure><img src="assets/project1-frontend.png" alt="Project 1 Codex chat creating the initial login page"><figcaption><strong>Project 1: initial frontend.</strong> The assistant creates the presentation layer and avoids fake client-side authentication.</figcaption></figure>
+    <figure><img src="assets/project1-backend.png" alt="Project 1 Codex chat creating backend credential validation"><figcaption><strong>Project 1: framework-assisted backend.</strong> The assistant adds salted scrypt hashing, generic failures, throttling, secure cookies, and response headers.</figcaption></figure>
+    <figure><img src="assets/project2-no-framework.png" alt="Project 2 Codex chat creating a login page and backend without the framework"><figcaption><strong>Project 2: comparison project.</strong> The assistant uses a plaintext demo password without equivalent session or response-security controls.</figcaption></figure>
+  </div>
+  <p class="small">This guide describes the behavior implemented by the Secure Coding Framework VS Code extension. Provider support and instruction-file behavior should be revalidated when provider tooling changes.</p>
+</main></body></html>

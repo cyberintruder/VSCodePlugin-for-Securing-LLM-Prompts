@@ -1,6 +1,6 @@
 # Security Architecture Review
 
-Use Security Review Framework v2 to review architecture and design risks.
+Use Secure Coding Framework v2 to review architecture and design risks.
 
 ## Focus
 

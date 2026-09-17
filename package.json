@@ -1,6 +1,6 @@
 {
   "name": "security-review-framework",
-  "displayName": "Security Review Framework",
+  "displayName": "Secure Coding Framework",
   "description": "AI-assisted security review framework for developer teams, with prompts, findings view, and an interactive dashboard.",
   "version": "0.1.0",
   "publisher": "security-review-framework",
@@ -30,6 +30,7 @@
     "owasp"
   ],
   "activationEvents": [
+    "onStartupFinished",
     "onCommand:securityReview.quickReviewCurrentFile",
     "onCommand:securityReview.deepReviewWorkspace",
     "onCommand:securityReview.aiSecurityReview",
@@ -70,6 +71,11 @@
         "command": "securityReview.openFramework",
         "title": "Security Review: Open Framework Manifest",
         "category": "Security Review"
+      },
+      {
+        "command": "securityReview.installWorkspaceInstructions",
+        "title": "Security Review: Install Workspace AI Instructions",
+        "category": "Security Review"
       }
     ],
     "viewsContainers": {
@@ -106,9 +112,12 @@
         {
           "command": "securityReview.openDashboard"
         },
-        {
-          "command": "securityReview.openFramework"
-        }
+          {
+            "command": "securityReview.openFramework"
+          },
+          {
+            "command": "securityReview.installWorkspaceInstructions"
+          }
       ],
       "editor/context": [
         {
@@ -125,7 +134,7 @@
       ]
     },
     "configuration": {
-      "title": "Security Review Framework",
+      "title": "Secure Coding Framework",
       "properties": {
         "securityReview.maxWorkspaceFiles": {
           "type": "number",

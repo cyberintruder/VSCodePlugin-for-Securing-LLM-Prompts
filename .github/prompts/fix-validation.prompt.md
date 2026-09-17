@@ -1,6 +1,6 @@
 # Security Fix Validation
 
-Use Security Review Framework v2 to validate remediation.
+Use Secure Coding Framework v2 to validate remediation.
 
 ## Inputs
 

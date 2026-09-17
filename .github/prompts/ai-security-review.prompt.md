@@ -1,6 +1,6 @@
 # AI Security Review
 
-Use Security Review Framework v2 and the AI rule packs under `.security-review/rules/ai/`.
+Use Secure Coding Framework v2 and the AI rule packs under `.security-review/rules/ai/`.
 
 ## Scope
 
