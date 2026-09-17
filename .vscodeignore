@@ -3,6 +3,8 @@
 dist/**
 .tools/**
 tools/**
+docs/assets/**
+docs/*.pptx
 test-projects/**
 test-vscode/**
 [Content_Types].xml

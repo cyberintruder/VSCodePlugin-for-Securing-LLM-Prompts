@@ -72,7 +72,7 @@ vsce package
 Install the generated VSIX:
 
 ```bash
-code --install-extension security-review-framework-0.1.0.vsix
+code --install-extension secure-coding-framework-2.0.0.vsix
 ```
 
 For the complete build and rebuild workflow, see:

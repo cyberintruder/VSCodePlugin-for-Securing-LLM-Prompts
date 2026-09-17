@@ -2,7 +2,7 @@
   "name": "security-review-framework",
   "displayName": "Secure Coding Framework",
   "description": "AI-assisted security review framework for developer teams, with prompts, findings view, and an interactive dashboard.",
-  "version": "0.1.0",
+  "version": "2.0.0",
   "publisher": "security-review-framework",
   "license": "MIT",
   "repository": {

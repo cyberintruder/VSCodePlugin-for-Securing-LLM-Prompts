@@ -2,7 +2,7 @@ dist/*.zip
 *.vsix
 # Keep the approved release package available in the repository for direct installation.
 !dist/
-!dist/secure-coding-framework-0.1.0.vsix
+!dist/secure-coding-framework-2.0.0.vsix
 node_modules/
 .tools/
 .DS_Store

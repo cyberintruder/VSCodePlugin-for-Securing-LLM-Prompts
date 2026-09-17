@@ -7,7 +7,7 @@ This guide explains how to build, rebuild, package, and install the Secure Codin
 The extension package is:
 
 ```text
-dist/security-review-framework-0.1.0.vsix
+dist/secure-coding-framework-2.0.0.vsix
 ```
 
 This `.vsix` file can be installed into VS Code and shared with developer teams.
@@ -105,19 +105,19 @@ If you are using the portable npm wrapper:
 Run:
 
 ```powershell
-.\node_modules\.bin\vsce.cmd package --out dist\security-review-framework-0.1.0.vsix
+.\node_modules\.bin\vsce.cmd package --out dist\secure-coding-framework-2.0.0.vsix
 ```
 
 Or:
 
 ```powershell
-npm run package -- --out dist\security-review-framework-0.1.0.vsix
+npm run package -- --out dist\secure-coding-framework-2.0.0.vsix
 ```
 
 The expected output is:
 
 ```text
-DONE  Packaged: dist\security-review-framework-0.1.0.vsix
+DONE  Packaged: dist\secure-coding-framework-2.0.0.vsix
 ```
 
 ## Install The VSIX Locally
@@ -125,7 +125,7 @@ DONE  Packaged: dist\security-review-framework-0.1.0.vsix
 Run:
 
 ```powershell
-code --install-extension dist\security-review-framework-0.1.0.vsix --force
+code --install-extension dist\secure-coding-framework-2.0.0.vsix --force
 ```
 
 Verify:
@@ -137,7 +137,7 @@ code --list-extensions --show-versions | Select-String -Pattern "security-review
 Expected:
 
 ```text
-security-review-framework.security-review-framework@0.1.0
+security-review-framework.security-review-framework@2.0.0
 ```
 
 ## Rebuild After Changes
@@ -147,8 +147,8 @@ Use this whenever you change extension files, framework rules, prompts, schemas,
 ```powershell
 $env:Path = "$PWD\.tools\node;$env:Path"
 npm install
-.\node_modules\.bin\vsce.cmd package --out dist\security-review-framework-0.1.0.vsix
-code --install-extension dist\security-review-framework-0.1.0.vsix --force
+.\node_modules\.bin\vsce.cmd package --out dist\secure-coding-framework-2.0.0.vsix
+code --install-extension dist\secure-coding-framework-2.0.0.vsix --force
 ```
 
 Restart VS Code or run:
@@ -187,14 +187,14 @@ Update `package.json`:
 
 ```json
 {
-  "version": "0.1.1"
+  "version": "2.0.1"
 }
 ```
 
 Then package:
 
 ```powershell
-.\node_modules\.bin\vsce.cmd package --out dist\security-review-framework-0.1.1.vsix
+.\node_modules\.bin\vsce.cmd package --out dist\secure-coding-framework-2.0.1.vsix
 ```
 
 ## Internal Team Distribution
@@ -202,13 +202,13 @@ Then package:
 Share the `.vsix` file:
 
 ```text
-dist/security-review-framework-0.1.0.vsix
+dist/secure-coding-framework-2.0.0.vsix
 ```
 
 Developers install it with:
 
 ```powershell
-code --install-extension security-review-framework-0.1.0.vsix
+code --install-extension secure-coding-framework-2.0.0.vsix
 ```
 
 For enterprise rollout, publish the VSIX through:
@@ -337,5 +337,5 @@ VS Code 1.126.0
 Generated:
 
 ```text
-dist/security-review-framework-0.1.0.vsix
+dist/secure-coding-framework-2.0.0.vsix
 ```
