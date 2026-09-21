@@ -1,8 +1,8 @@
 # Secure Coding Framework Version
 
-Version: `2.0.0`
+Version: `2.0.2`
 
-Release date: `2026-06-29`
+Release date: `2026-09-21`
 
 Compatibility:
 

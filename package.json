@@ -2,7 +2,7 @@
   "name": "security-review-framework",
   "displayName": "Secure Coding Framework",
   "description": "AI-assisted security review framework for developer teams, with prompts, findings view, and an interactive dashboard.",
-  "version": "2.0.0",
+  "version": "2.0.2",
   "publisher": "security-review-framework",
   "license": "MIT",
   "repository": {
@@ -37,6 +37,7 @@
     "onCommand:securityReview.fixValidation",
     "onCommand:securityReview.openDashboard",
     "onCommand:securityReview.openFramework",
+    "onCommand:securityReview.installWorkspaceInstructions",
     "onView:securityReviewFindings"
   ],
   "main": "./src/extension.js",

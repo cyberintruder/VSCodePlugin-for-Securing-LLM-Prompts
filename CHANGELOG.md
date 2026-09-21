@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.0.2 - 2026-09-21
+
+- Fixed extension startup failure caused by unescaped Markdown backticks in the managed instruction template.
+
+## 2.0.1 - 2026-09-21
+
+- Fixed extension activation for workspace instruction installation.
+- Enhanced existing provider instruction files without overwriting developer content.
+- Provisioned new workspaces when files are created.
+- Rebuilt the VSIX with the corrected lifecycle behavior.
+
 ## 0.1.0 VS Code Extension Phase 1 - 2026-06-29
 
 - Added standalone VS Code extension manifest.
