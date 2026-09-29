@@ -295,7 +295,7 @@ Ensure `package.json` contains:
 ```json
 "repository": {
   "type": "git",
-  "url": "https://github.com/security-review-framework/security-review-framework.git"
+  "url": "https://github.com/HARMAN-Auto/SP-Secure-Code-Plugin.git"
 }
 ```
 
