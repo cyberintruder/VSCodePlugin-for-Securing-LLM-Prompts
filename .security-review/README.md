@@ -18,13 +18,11 @@ Use it in this order:
 
 ```text
 .security-review/
-  workflow/       Review process and scoring rules
+  workflow/       Review process
   rules/          Modular security review packs
   schemas/        Structured output formats
   examples/       Example JSON output
   templates/      HTML report dashboard
-  prompts/        Assistant command patterns
-  setup/          Adoption guides
 ```
 
 ## Design Principle

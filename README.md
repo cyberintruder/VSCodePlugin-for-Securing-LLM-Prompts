@@ -82,6 +82,6 @@ The assistant must:
 
 ## Version
 
-Current version: `2.0.0`
+Current version: `2.0.3`
 
 See [SECURITY_REVIEW_VERSION.md](SECURITY_REVIEW_VERSION.md).

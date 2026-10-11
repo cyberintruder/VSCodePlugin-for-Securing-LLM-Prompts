@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.3 - 2026-10-11
+
+- Removed unused report fragments, adoption and command documentation, and three unconnected workflow files from the provisioned framework.
+- Cleaned references to removed files.
+- Excluded local presentation review artifacts and old VSIX packages from extension builds.
+
 ## 2.0.2 - 2026-09-21
 
 - Fixed extension startup failure caused by unescaped Markdown backticks in the managed instruction template.

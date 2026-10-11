@@ -117,5 +117,3 @@ The dashboard is a single static file:
 ```
 
 Open it in a browser, paste JSON matching `.security-review/schemas/report.schema.json`, and click `Render Report`.
-
-The older `templates/report-template.html` file redirects users to the v2 dashboard.

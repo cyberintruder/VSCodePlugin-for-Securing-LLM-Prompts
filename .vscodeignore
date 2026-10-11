@@ -14,3 +14,5 @@ extension.vsixmanifest
 node_modules/**
 .DS_Store
 Thumbs.db
+.ppt-review*/**
+**/*.vsix

@@ -1,6 +1,6 @@
 {
   "name": "Secure Coding Framework",
-  "version": "2.0.0",
+  "version": "2.0.3",
   "schemaVersion": "1.0",
   "entrypoints": {
     "copilotInstructions": ".github/copilot-instructions.md",
